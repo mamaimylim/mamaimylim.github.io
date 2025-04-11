@@ -3,59 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Portfolio | Colorful Drawings</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>和の芸術 | Japanese Art Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FF6B6B;
-            --secondary: #4ECDC4;
-            --accent: #FFE66D;
-            --background: #F7FFF7;
-            --dark: #2D3047;
+            --primary: #8B0000; /* Deep red */
+            --secondary: #2F4F4F; /* Dark slate gray */
+            --accent: #FFD700; /* Gold */
+            --paper: #F3E9D2; /* Washi paper color */
+            --ink: #1A1A1A; /* Sumi ink color */
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Shippori Mincho', serif;
         }
 
         body {
-            background-color: var(--background);
-            color: var(--dark);
-            line-height: 1.6;
+            background-color: var(--paper);
+            color: var(--ink);
+            line-height: 1.8;
         }
 
         nav {
-            background: linear-gradient(135deg, var(--primary) 0%, #FF8E8E 100%);
-            padding: 1.2rem;
+            background: var(--paper);
+            padding: 1rem 2rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-bottom: 2px solid var(--primary);
         }
 
         nav ul {
             list-style: none;
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 3rem;
         }
 
         nav a {
-            color: white;
+            color: var(--secondary);
             text-decoration: none;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
         }
 
-        nav a:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         .hero {
@@ -67,22 +76,22 @@
             text-align: center;
             padding: 2rem;
             margin-top: 60px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            background: linear-gradient(rgba(243, 233, 210, 0.8), rgba(243, 233, 210, 0.8)),
+                        url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
         }
 
         .hero h1 {
             font-size: 4rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            color: var(--primary);
+            letter-spacing: 0.3rem;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .hero p {
             font-size: 1.5rem;
-            color: white;
+            color: var(--secondary);
             max-width: 600px;
-            opacity: 0.9;
         }
 
         .gallery {
@@ -97,15 +106,26 @@
         .artwork {
             position: relative;
             overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
             background: white;
         }
 
         .artwork:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .artwork::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/shiba.png');
+            opacity: 0.1;
+            pointer-events: none;
         }
 
         .artwork img {
@@ -113,41 +133,45 @@
             height: 400px;
             object-fit: cover;
             display: block;
-            border-bottom: 4px solid var(--secondary);
+            border: 1px solid var(--secondary);
         }
 
         .art-info {
             padding: 1.5rem;
             background: white;
+            position: relative;
         }
 
         .art-info h3 {
-            color: var(--dark);
+            color: var(--primary);
             margin-bottom: 0.5rem;
+            font-family: 'Noto Sans JP', sans-serif;
         }
 
         .art-info p {
-            color: var(--primary);
-            font-weight: 600;
+            color: var(--secondary);
+            font-size: 0.9rem;
         }
 
-        .tag {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-top: 1rem;
+        .seigaiha-pattern {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
         }
 
         section {
             padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .section-heading {
             text-align: center;
             margin-bottom: 3rem;
+            position: relative;
         }
 
         .section-heading h2 {
@@ -155,45 +179,49 @@
             color: var(--primary);
             position: relative;
             display: inline-block;
+            padding: 0 2rem;
+            background: var(--paper);
+            z-index: 1;
         }
 
-        .section-heading h2::after {
+        .section-heading::before {
             content: '';
             position: absolute;
-            bottom: -10px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: var(--secondary);
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 2px;
+            background: var(--primary);
         }
 
         #about {
-            background: rgba(255,107,107,0.08);
+            background: url('https://www.transparenttextures.com/patterns/asf-light.png');
         }
 
-        #contact {
-            background: rgba(78,205,196,0.08);
+        .washi-border {
+            border: 15px solid transparent;
+            border-image: url('https://www.transparenttextures.com/patterns/rice-paper-3.png') 30 round;
+            padding: 2rem;
+            margin: 2rem 0;
         }
 
         .contact-form {
             max-width: 600px;
             margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border: 1px solid var(--secondary);
+            position: relative;
         }
 
         input, textarea {
             width: 100%;
             padding: 1rem;
             margin: 0.5rem 0;
-            border: 2px solid var(--secondary);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 8px rgba(255,107,107,0.2);
+            border: 1px solid var(--secondary);
+            background: var(--paper);
+            font-family: 'Noto Sans JP', sans-serif;
         }
 
         button {
@@ -201,15 +229,14 @@
             color: white;
             padding: 1rem 2rem;
             border: none;
-            border-radius: 30px;
-            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-family: 'Noto Sans JP', sans-serif;
+            letter-spacing: 0.1rem;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+            background: var(--secondary);
         }
 
         @media (max-width: 768px) {
@@ -226,61 +253,57 @@
 <body>
     <nav>
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home">ホーム</a></li>
+            <li><a href="#gallery">作品集</a></li>
+            <li><a href="#about">について</a></li>
+            <li><a href="#contact">連絡</a></li>
         </ul>
     </nav>
 
     <section class="hero" id="home">
-        <h1>Colorful Creations</h1>
-        <p>Vibrant drawings and illustrations that spark joy</p>
+        <h1>和の芸術</h1>
+        <p>伝統と現代の融合を表現した日本美術の世界</p>
     </section>
 
     <main class="gallery" id="gallery">
         <div class="artwork">
-            <img src="https://source.unsplash.com/random/600x800?happy-art1" alt="Joyful Artwork">
+            <img src="https://source.unsplash.com/random/600x800?japanese-art1" alt="Japanese Artwork 1">
             <div class="art-info">
-                <h3>Sunny Day Adventures</h3>
-                <p>Digital Illustration, 2024</p>
-                <span class="tag">Playful</span>
+                <h3>桜の舞</h3>
+                <p>墨絵, 令和5年</p>
+                <div class="seigaiha-pattern"></div>
             </div>
         </div>
 
         <div class="artwork">
-            <img src="https://source.unsplash.com/random/600x800?happy-art2" alt="Colorful Design">
+            <img src="https://source.unsplash.com/random/600x800?japanese-art2" alt="Japanese Artwork 2">
             <div class="art-info">
-                <h3>Rainbow Dreams</h3>
-                <p>Mixed Media, 2024</p>
-                <span class="tag">Whimsical</span>
+                <h3>金閣寺の秋</h3>
+                <p>水彩画, 令和4年</p>
+                <div class="seigaiha-pattern"></div>
             </div>
         </div>
-
-        <!-- Add more artwork blocks -->
     </main>
 
     <section id="about">
         <div class="section-heading">
-            <h2>About Me</h2>
+            <h2>作家について</h2>
         </div>
-        <div class="content">
-            <p>I'm a passionate illustrator dedicated to creating artwork that brings happiness and color to everyday life. My work combines traditional techniques with digital magic to create joyful visual experiences.</p>
+        <div class="washi-border">
+            <p>日本の伝統美術を現代的な感性で再解釈することをテーマに制作活動を行っております。自然との調和、季節の移ろい、わびさびの精神を作品を通じて表現しています。</p>
         </div>
     </section>
 
     <section id="contact">
         <div class="section-heading">
-            <h2>Get in Touch</h2>
+            <h2>お問い合わせ</h2>
         </div>
         <form class="contact-form">
-            <input type="text" placeholder="Your Name">
-            <input type="email" placeholder="Your Email">
-            <textarea placeholder="Your Message" rows="5"></textarea>
-            <button type="submit">Send Message</button>
+            <input type="text" placeholder="お名前">
+            <input type="email" placeholder="メールアドレス">
+            <textarea placeholder="メッセージ" rows="5"></textarea>
+            <button type="submit">送信</button>
         </form>
     </section>
-
-    <!-- Modal and JavaScript from previous version can be added here -->
 </body>
 </html>
