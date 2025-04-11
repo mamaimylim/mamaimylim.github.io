@@ -3,307 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>和の芸術 | Japanese Art Gallery</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho&display=swap" rel="stylesheet">
+    <title>ArtFolio | Creative Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #8B0000; /* Deep red */
-            --secondary: #2F4F4F; /* Dark slate gray */
-            --accent: #FFD700; /* Gold */
-            --paper: #F3E9D2; /* Washi paper color */
-            --ink: #1A1A1A; /* Sumi ink color */
+            --primary: #1A1A1A;
+            --secondary: #F5F5F5;
+            --accent: #FF4D4D;
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Shippori Mincho', serif;
         }
 
         body {
-            background-color: var(--paper);
-            color: var(--ink);
-            line-height: 1.8;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--secondary);
+            color: var(--primary);
+            overflow-x: hidden;
         }
 
-        nav {
-            background: var(--paper);
-            padding: 1rem 2rem;
+        /* Navigation */
+        .nav-container {
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
+            padding: 2rem 5%;
             z-index: 1000;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        nav ul {
-            list-style: none;
             display: flex;
-            justify-content: center;
-            gap: 3rem;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
         }
 
-        nav a {
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
             color: var(--secondary);
             text-decoration: none;
-            font-size: 1.1rem;
             position: relative;
-            padding: 0.5rem 0;
+            font-weight: 500;
         }
 
-        nav a::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
+            background: var(--accent);
+            transition: var(--transition);
         }
 
-        nav a:hover::after {
+        .nav-links a:hover::after {
             width: 100%;
         }
 
+        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 60px;
-            background: linear-gradient(rgba(243, 233, 210, 0.8), rgba(243, 233, 210, 0.8)),
-                        url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            color: var(--primary);
-            letter-spacing: 0.3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .hero p {
-            font-size: 1.5rem;
+            padding: 0 5%;
+            background: var(--primary);
             color: var(--secondary);
-            max-width: 600px;
         }
 
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 2rem;
+        .hero-content {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .artwork {
+        .hero h1 {
+            font-size: 5vw;
+            line-height: 1;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .hero h1 span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 5%;
+        }
+
+        .grid-item {
             position: relative;
             overflow: hidden;
-            border-radius: 4px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            background: white;
+            aspect-ratio: 1/1.25;
         }
 
-        .artwork:hover {
-            transform: translateY(-5px);
-        }
-
-        .artwork::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .grid-item img {
             width: 100%;
             height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/shiba.png');
-            opacity: 0.1;
-            pointer-events: none;
-        }
-
-        .artwork img {
-            width: 100%;
-            height: 400px;
             object-fit: cover;
-            display: block;
-            border: 1px solid var(--secondary);
+            transition: var(--transition);
         }
 
-        .art-info {
-            padding: 1.5rem;
-            background: white;
-            position: relative;
+        .grid-item:hover img {
+            transform: scale(1.05);
         }
 
-        .art-info h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-family: 'Noto Sans JP', sans-serif;
-        }
-
-        .art-info p {
-            color: var(--secondary);
-            font-size: 0.9rem;
-        }
-
-        .seigaiha-pattern {
+        .item-info {
             position: absolute;
-            bottom: -30px;
-            right: -30px;
-            width: 100px;
-            height: 100px;
-            opacity: 0.1;
+            bottom: 0;
+            left: 0;
+            padding: 2rem;
+            color: white;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: var(--transition);
         }
 
-        section {
-            padding: 4rem 2rem;
+        .grid-item:hover .item-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text Animation */
+        .animate-text {
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .animate-text span {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        /* Project Section */
+        .project-section {
+            padding: 10% 5%;
+        }
+
+        .project-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 10vh;
+        }
+
+        .project-image {
             position: relative;
+            height: 80vh;
             overflow: hidden;
         }
 
-        .section-heading {
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-number {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 10% 5%;
             text-align: center;
-            margin-bottom: 3rem;
+        }
+
+        .contact-title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .email-link {
+            font-size: 2rem;
+            color: var(--accent);
+            text-decoration: none;
             position: relative;
         }
 
-        .section-heading h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            position: relative;
-            display: inline-block;
-            padding: 0 2rem;
-            background: var(--paper);
-            z-index: 1;
-        }
-
-        .section-heading::before {
+        .email-link::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
+            bottom: -5px;
+            left: 0;
+            width: 0;
             height: 2px;
-            background: var(--primary);
+            background: var(--accent);
+            transition: var(--transition);
         }
 
-        #about {
-            background: url('https://www.transparenttextures.com/patterns/asf-light.png');
-        }
-
-        .washi-border {
-            border: 15px solid transparent;
-            border-image: url('https://www.transparenttextures.com/patterns/rice-paper-3.png') 30 round;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border: 1px solid var(--secondary);
-            position: relative;
-        }
-
-        input, textarea {
+        .email-link:hover::after {
             width: 100%;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border: 1px solid var(--secondary);
-            background: var(--paper);
-            font-family: 'Noto Sans JP', sans-serif;
-        }
-
-        button {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Noto Sans JP', sans-serif;
-            letter-spacing: 0.1rem;
-        }
-
-        button:hover {
-            background: var(--secondary);
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
+            .project-card {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .contact-title {
                 font-size: 2.5rem;
             }
-            
-            .gallery {
-                grid-template-columns: 1fr;
+
+            .email-link {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="#home">ホーム</a></li>
-            <li><a href="#gallery">作品集</a></li>
-            <li><a href="#about">について</a></li>
-            <li><a href="#contact">連絡</a></li>
-        </ul>
+    <nav class="nav-container">
+        <div class="logo">ArtFolio</div>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
     </nav>
 
-    <section class="hero" id="home">
-        <h1>和の芸術</h1>
-        <p>伝統と現代の融合を表現した日本美術の世界</p>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="animate-text">
+                <span>Creative</span><br>
+                <span>Visual</span><br>
+                <span>Solutions</span>
+            </h1>
+        </div>
     </section>
 
-    <main class="gallery" id="gallery">
-        <div class="artwork">
-            <img src="https://source.unsplash.com/random/600x800?japanese-art1" alt="Japanese Artwork 1">
-            <div class="art-info">
-                <h3>桜の舞</h3>
-                <p>墨絵, 令和5年</p>
-                <div class="seigaiha-pattern"></div>
+    <section class="project-section">
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://source.unsplash.com/random/800x1000?art1" alt="Project 1">
+            </div>
+            <div class="project-info">
+                <div class="project-number">01</div>
+                <h2 class="project-title">Experimental Visual Design</h2>
+                <p>Exploring the boundaries between digital and physical art forms.</p>
             </div>
         </div>
 
-        <div class="artwork">
-            <img src="https://source.unsplash.com/random/600x800?japanese-art2" alt="Japanese Artwork 2">
-            <div class="art-info">
-                <h3>金閣寺の秋</h3>
-                <p>水彩画, 令和4年</p>
-                <div class="seigaiha-pattern"></div>
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://source.unsplash.com/random/800x1000?art2" alt="Project 2">
+            </div>
+            <div class="project-info">
+                <div class="project-number">02</div>
+                <h2 class="project-title">Dynamic Brand Identity</h2>
+                <p>Creating motion systems for modern digital platforms.</p>
             </div>
         </div>
-    </main>
-
-    <section id="about">
-        <div class="section-heading">
-            <h2>作家について</h2>
-        </div>
-        <div class="washi-border">
-            <p>日本の伝統美術を現代的な感性で再解釈することをテーマに制作活動を行っております。自然との調和、季節の移ろい、わびさびの精神を作品を通じて表現しています。</p>
-        </div>
     </section>
 
-    <section id="contact">
-        <div class="section-heading">
-            <h2>お問い合わせ</h2>
-        </div>
-        <form class="contact-form">
-            <input type="text" placeholder="お名前">
-            <input type="email" placeholder="メールアドレス">
-            <textarea placeholder="メッセージ" rows="5"></textarea>
-            <button type="submit">送信</button>
-        </form>
+    <section class="contact-section">
+        <h2 class="contact-title">Let's Create<br>Something Amazing</h2>
+        <a href="mailto:hello@artfolio.com" class="email-link">hello@artfolio.com</a>
     </section>
+
+    <script>
+        // Simple animation trigger
+        document.addEventListener('DOMContentLoaded', () => {
+            const animateElements = document.querySelectorAll('.animate-text span');
+            
+            animateElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.transform = 'translateY(0)';
+                    el.style.opacity = '1';
+                }, index * 200);
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
